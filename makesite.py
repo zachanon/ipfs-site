@@ -139,7 +139,7 @@ def make_list(posts, dst, list_layout, item_layout, **params):
     dst_path = render(dst, **params)
     output = render(list_layout, **params)
 
-    log('Rendering list => {} ...', dst_path)
+    log('Rendering {} => {} ...', src_path, dst_path)
     fwrite(dst_path, output)
 
 
