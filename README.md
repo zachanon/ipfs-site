@@ -8,7 +8,7 @@ A repository containing the code needed to reproduce my static ipfs hosted websi
 
 https://ipfs.io/ipfs/bafybeihttzpxgo2fai6qfsxm6w4uebuv4jqu5izmkl6ufqflwwvqrkxdwi
 
-### Usage
+# Usage
 
 ## Build
 
