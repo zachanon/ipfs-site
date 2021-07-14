@@ -120,7 +120,7 @@ def make_pages(src, dst, layout, **params):
         dst_path = render(dst, **page_params)
         output = render(layout, **page_params)
 
-        log('Params: {}', params)
+        log('Rendering {} => {} ...', src_path, dst_path)
         fwrite(dst_path, output)
 
     return sorted(items, key=lambda x: x['date'], reverse=True)
@@ -139,7 +139,7 @@ def make_list(posts, dst, list_layout, item_layout, **params):
     dst_path = render(dst, **params)
     output = render(list_layout, **params)
 
-    log('Rendering {} => {} ...', src_path, dst_path)
+    log('Rendering list => {} ...', dst_path)
     fwrite(dst_path, output)
 
 
@@ -155,6 +155,7 @@ def main():
         'subtitle': 'Lorem Ipsum',
         'author': 'Admin',
         'site_url': '',
+        'home_link': '.',
         'current_year': datetime.datetime.now().year
     }
 
