@@ -6,7 +6,7 @@ A repository containing the code needed to reproduce my static ipfs hosted websi
 
 ## Live site
 
-https://ipfs.io/ipfs/QmR2hX8e64wXCYwgozmWUooF7y94svdqoQ2U6WcAxcotqZ
+https://ipfs.io/ipfs/bafybeib5cxougk34eaqcjtjoiltiiawdlf27tz4rzlf76vls5vbsaaqa4e
 
 # Usage
 
