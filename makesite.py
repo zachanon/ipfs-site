@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 """Make static website/blog with Python."""
 
 
@@ -37,7 +35,6 @@ def log(msg, *args):
 def truncate(text, words=25):
     """Remove tags and truncate text to the specified number of words."""
     return ' '.join(re.sub('(?s)<.*?>', ' ', text).split()[:words])
-
 
 def read_headers(text):
     """Parse headers in text and yield (key, value, end-index) tuples."""
@@ -106,7 +103,6 @@ def make_pages(src, dst, layout, **params):
 
     for src_path in glob.glob(src):
         content = read_content(src_path)
-
         page_params = dict(params, **content)
 
         # Populate placeholders in content if content-rendering is enabled.
@@ -116,7 +112,7 @@ def make_pages(src, dst, layout, **params):
             content['content'] = rendered_content
 
         items.append(content)
-
+        
         dst_path = render(dst, **page_params)
         output = render(layout, **page_params)
 
@@ -174,28 +170,58 @@ def main():
     list_layout = render(page_layout, content=list_layout)
 
     # Create site pages.
-    make_pages('content/_index.html', '_site/index.html',
-               page_layout, **params)
-    make_pages('content/[!_]*.html', '_site/{{ slug }}/index.html',
-               page_layout, **params)
+    make_pages(
+        'content/_index.html',
+        '_site/index.html',
+        page_layout,
+        homeurl="./",
+        **params)
+    make_pages(
+        'content/[!_]*.html',
+        '_site/{{ slug }}/index.html',
+        page_layout,
+        homeurl="../",
+        **params)
 
     # Create blogs.
-    blog_posts = make_pages('content/blog/*.md',
-                            '_site/blog/{{ slug }}/index.html',
-                            post_layout, blog='blog', **params)
+    blog_posts = make_pages(
+        'content/posts/*.md',
+        '_site/posts/{{ slug }}/index.html',
+        post_layout,
+        page='posts',
+        homeurl="../../",
+        **params)
 
     # Create blog list pages.
-    make_list(blog_posts, '_site/blog/index.html',
-              list_layout, item_layout, blog='blog', title='Blog', **params)
+    make_list(
+        blog_posts,
+        '_site/posts/index.html',
+        list_layout,
+        item_layout,
+        page='posts',
+        title='Posts',
+        homeurl="../",
+        **params)
 
     #create apps
-    apps_posts = make_pages('content/apps/*.md',
-                            '_site/apps/{{ slug }}/index.html',
-                            post_layout, blog='apps', **params)
+    apps_posts = make_pages(
+        'content/apps/*.md',
+        '_site/apps/{{ slug }}/index.html',
+        post_layout,
+        page='apps',
+        homeurl="../../",
+        **params)
 
     #create apps list pages
-    make_list(apps_posts, '_site/apps/index.html',
-              list_layout, item_layout, blog='apps', title='Apps', **params)
+    make_list(
+        apps_posts,
+        '_site/apps/index.html',
+        list_layout,
+        item_layout,
+        page='apps',
+        title='Apps',
+        homeurl="../",
+        **params)
 
 # Test parameter to be set temporarily by unit tests.
 _test = None
